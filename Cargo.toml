@@ -1,5 +1,8 @@
 [workspace]
-members = ["crates/str-split"]
+members = [
+    "crates/str-split",
+    "crates/iterators",
+]
 resolver = "2"
 
 [workspace.package]

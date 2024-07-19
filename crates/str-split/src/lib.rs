@@ -6,7 +6,10 @@ pub struct StrSplit<'a, D> {
 
 impl<'a, D> StrSplit<'a, D> {
     pub fn new(haystack: &'a str, delimiter: D) -> Self {
-        StrSplit { remainder: Some(haystack), delimiter }
+        StrSplit {
+            remainder: Some(haystack),
+            delimiter,
+        }
     }
 }
 
@@ -22,7 +25,9 @@ impl Delimiter for &str {
 
 impl Delimiter for char {
     fn find_next(&self, s: &str) -> Option<(usize, usize)> {
-        s.char_indices().find(|(_, c)| c == self).map(|(start, _)| (start, start + self.len_utf8()))
+        s.char_indices()
+            .find(|(_, c)| c == self)
+            .map(|(start, _)| (start, start + self.len_utf8()))
     }
 }
 
@@ -44,12 +49,14 @@ where
 }
 
 pub fn until_char(s: &str, c: char) -> &str {
-    StrSplit::new(s, c).next().expect("StrSpilt always gives atleast one result")
+    StrSplit::new(s, c)
+        .next()
+        .expect("StrSpilt always gives at least one result")
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::{until_char, StrSplit};
+    use super::*;
 
     #[test]
     fn test_simple_str_split() {
